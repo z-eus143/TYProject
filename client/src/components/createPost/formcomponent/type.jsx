@@ -31,7 +31,16 @@ export const Payment = () => {
     return(
         <>
         <h1 className="room_form">Payment</h1>
-        <SubsCard Prices="3000"/>
+        <div style={{marginLeft : "-50rem"}}>
+          <h1>Select Rent Method</h1>
+          <label><input type="radio" value="Deposit + Rent" name="options"/>Deposit + Rent</label>
+          <label><input type="radio" value="Deposit first then Rent per month" name="options"/>Deposit first then Rent per month</label>
+        </div>
+        <div style={{display : "grid",gridTemplateColumns : "1fr 1fr 1fr" , marginRight : "20rem" , marginLeft : "23rem"}}>
+        <SubsCard Prices="3000" Title="For 3 Months"/>
+        <SubsCard Prices="6000" Title="For 6 Months"/>
+        <SubsCard Prices="9000" Title="For 12 Months"/>
+        </div>
         </>
     )
 }

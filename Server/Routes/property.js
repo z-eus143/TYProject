@@ -4,6 +4,7 @@ const PropertyModel = require('../models/Property')
 const usermodel = require('../models/User')
 const locationmodel = require('../models/location')
 const imageModel = require('../models/image')
+const subscriptionModel = require('../models/subscription')
 
 PropertyData.post("/propertydata", async(req,res) => {
     try {
@@ -122,4 +123,21 @@ PropertyData.post("/imagesfromdb", async(req,res) => {
     }
 })
 
+PropertyData.post("/subscribe", async(req,res) => {
+    try {
+        const {amount , startDate , endDate} = req.body;
+        const existingproperty = await subscriptionModel.find({_id : req.body.id})
+        if(existingproperty){
+            const result = await subscriptionModel.create({
+                amount : amount,
+                startDate : startDate,
+                endDate : endDate,
+                propertyId : req.body.id
+            })
+        }
+    } catch (error) {
+        res.status(400).json({"message" : "Error"})
+        console.log(error)
+    }
+})
 module.exports = PropertyData;
