@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import '../Signupdata/style.css'
-import logo from 'D:/tanmay/client/src/assets/profile.jpg'
+import logo from '../../assets/profile.jpg'
 import {useNavigate} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'

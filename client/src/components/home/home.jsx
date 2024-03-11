@@ -1,7 +1,7 @@
 import Cards from "../Cards/cards"
 import { Header } from "../header/header"
 import '../home/style.css'
-import search from 'D:/tanmay/client/src/assets/search.png'
+import search from '../../assets/search.png'
 import { useState , useEffect } from "react"
 import LoadingBar from 'react-top-loading-bar'
 import axios from "axios"

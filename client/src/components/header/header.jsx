@@ -1,6 +1,6 @@
 import '../header/style.css'
-import logo from 'D:/tanmay/client/src/assets/profile.jpg'
-import logo1 from 'D:/tanmay/client/src/assets/logo.png'
+import logo from '../../assets/profile.jpg'
+import logo1 from '../../assets/logo.png'
 import { useState } from 'react'
 import {useNavigate} from 'react-router-dom'
 import {Magic} from 'magic-sdk'
