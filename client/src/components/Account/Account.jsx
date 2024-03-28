@@ -4,6 +4,7 @@ import axios from "axios";
 import '../Account/style.css'
 import {RiNotification2Fill , RiWallet2Fill , RiEdit2Fill , RiUser3Line} from '@remixicon/react'
 import LoadingBar from 'react-top-loading-bar'
+import {useNavigate} from 'react-router-dom'
 
 
 export const Account = () => {
@@ -16,11 +17,13 @@ export const Account = () => {
     const change = () => {
         setopen(true)
     }
+    const navigate = useNavigate();
     const [email,setemail] = useState("");
     const [image,setimage] = useState("");
     const [lname,setlname] = useState("");
     const [mobile,setmobile] = useState("");
     const [fname,setfname] = useState("");
+    const [type , settype] = useState([]);
     axios.post("http://localhost:4000/Account/User",{"id" : localStorage.getItem("userId")})
     .then((res) => {
         setemail(res.data.user.email);
@@ -28,6 +31,12 @@ export const Account = () => {
         setfname(res.data.user.firstname);
         setmobile(res.data.user.mobileno);
         setlname(res.data.user.lastname);
+    })
+    axios.post("http://localhost:4000/Account/Userhosted",{"id" : localStorage.getItem("userId")})
+    .then((data) => {
+        settype(data.data.user)
+        // const types = type.map(item => item.Type);
+        // settype(types);
     })
     return(<>
     <LoadingBar color='#f11946' progress={progress} onLoaderFinished={() => setProgress(0)}/>
@@ -53,7 +62,15 @@ export const Account = () => {
         <label>Rented Property</label>
         <div className="user_rent"></div>
         <label>Hosted Properties</label>
-        <div className="user_hosting">hello</div>
+        <div className="user_hosting">
+        {
+            type.map(item => (
+                <div onClick={(e) => navigate('/details' , {state : {id : e.target.id}})}>
+                    <label id={item._id}>{item.Type}</label>
+                </div>
+            ))
+        }
+        </div>
         </div>
         </div>
 

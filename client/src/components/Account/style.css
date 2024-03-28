@@ -56,8 +56,11 @@
 }
 
 .user_hosting{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     background-color: white;
-    height: 3.5rem;
+    height: fit-content;
+    width: 50%;
     text-align: left;
     margin: 20px;
     padding: 10px;

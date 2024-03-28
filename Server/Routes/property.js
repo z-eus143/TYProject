@@ -140,4 +140,16 @@ PropertyData.post("/subscribe", async(req,res) => {
         console.log(error)
     }
 })
+
+PropertyData.post("/displayproperty" , async(req,res) => {
+    try {
+        const propertydata = await PropertyModel.findOne({_id : req.body.id})
+        const propertylocation = await locationmodel.findOne({propertyId : req.body.id})
+        const propertyimage = await imageModel.findOne({propertyId : req.body.id})
+        res.status(200).json({propertydata,propertylocation,propertyimage})
+    } catch (error) {
+        res.status(400).json({"message" : "Error"})
+        console.log(error)
+    }
+})
 module.exports = PropertyData;

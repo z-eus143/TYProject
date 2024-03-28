@@ -11,6 +11,7 @@ import {Footer} from './components/Footer/Footer'
 import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react'
 import { Displayproperty } from './components/dispalypropertydetails/dispay'
+import { Rent } from './components/proced_for_rent/rent'
 
 function App() {
   const [progress,setProgress] = useState(100)
@@ -26,6 +27,7 @@ function App() {
           <Route path='/createPost' element={<CreatePost/>}/>
           <Route path='/Account' element={<Account/>}/>
           <Route path='/details' element={<Displayproperty/>}/>
+          <Route path='/rent' element={<Rent/>}/>
         </Routes>
       </BrowserRouter>
       </Provider>

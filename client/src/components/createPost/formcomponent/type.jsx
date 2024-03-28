@@ -31,11 +31,11 @@ export const Payment = () => {
     return(
         <>
         <h1 className="room_form">Payment</h1>
-        <div style={{marginLeft : "-50rem"}}>
+        {/* <div style={{marginLeft : "-50rem"}}>
           <h1>Select Rent Method</h1>
           <label><input type="radio" value="Deposit + Rent" name="options"/>Deposit + Rent</label>
           <label><input type="radio" value="Deposit first then Rent per month" name="options"/>Deposit first then Rent per month</label>
-        </div>
+        </div> */}
         <div style={{display : "grid",gridTemplateColumns : "1fr 1fr 1fr" , marginRight : "20rem" , marginLeft : "23rem"}}>
         <SubsCard Prices="3000" Title="For 3 Months"/>
         <SubsCard Prices="6000" Title="For 6 Months"/>
@@ -148,7 +148,15 @@ const Propertyroom = () => {
             <label className="for_lab">Additional info: </label>
             <textarea rows="1" cols="20" className="in_txt" name="Additional" onChange={handleChange}  placeholder={Additional}/>
          </div>
+         <div style={{width : "200%", marginLeft : "0.7rem"}}>
+          <h3>Select Rent Method: </h3>
+          <ul style={{listStyle : "none" , marginLeft : "-2.5rem" }}>
+          <li><label className="for_lab"><input type="radio" value="Deposit + Rent" name="options" onChange={(e) => {console.log(e.target.value)}}/>Deposit + Rent</label></li>
+          <li><label className="for_lab"><input type="radio" value="Deposit first then Rent per month" name="options" onChange={(e) => {console.log(e.target.value)}}/>Deposit first then Rent per month</label></li>
+          </ul>
+        </div>
      </form>
+     
      {!(Property || message) ? <button className='btn' style={{marginTop: '10px'}} onClick={handleSubmit}>Submit</button> : <h1 style={{marginTop: '10px' , backgroundColor: "lightgreen" , boxShadow: "6px 6px 12px #c5c5c5" , borderRadius: "50px" , marginLeft: "42%" , marginRight : "42%"}}>Submitted</h1>}
      </>)
  }
