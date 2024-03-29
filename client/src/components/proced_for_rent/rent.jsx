@@ -1,6 +1,5 @@
 import { Header } from "../header/header"
 import React, { useState , useEffect} from 'react';
-import Razorpay from 'razorpay';
 
 export const Rent = () => {
     const [startDate, setStartDate] = useState('');
