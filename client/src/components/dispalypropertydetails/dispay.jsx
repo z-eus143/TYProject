@@ -57,6 +57,9 @@ export const Displayproperty = () => {
           <h1>Locality: {propertyData.propertylocation.locality}</h1>
           <h1>City: {propertyData.propertylocation.city}</h1>
           <h1>Area: {propertyData.propertylocation.area}</h1>
+          <img style={{height : "100px", width : "100px" , borderRadius : "50px"}} src={propertyData.Userdata.image} alt="image" className='Card-Img'/>
+          <h1>OwnerName: {propertyData.Userdata.firstname +" "+ propertyData.Userdata.lastname}</h1>
+          <h1>Contact Details : {propertyData.Userdata.mobileno + " / " + propertyData.Userdata.email}</h1>
         </div>
       )}
       <div>

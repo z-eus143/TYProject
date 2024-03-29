@@ -31,14 +31,9 @@ export const Payment = () => {
     return(
         <>
         <h1 className="room_form">Payment</h1>
-        {/* <div style={{marginLeft : "-50rem"}}>
-          <h1>Select Rent Method</h1>
-          <label><input type="radio" value="Deposit + Rent" name="options"/>Deposit + Rent</label>
-          <label><input type="radio" value="Deposit first then Rent per month" name="options"/>Deposit first then Rent per month</label>
-        </div> */}
         <div style={{display : "grid",gridTemplateColumns : "1fr 1fr 1fr" , marginRight : "20rem" , marginLeft : "23rem"}}>
         <SubsCard Prices="3000" Title="For 3 Months"/>
-        <SubsCard Prices="6000" Title="For 6 Months"/>
+        <SubsCard Prices="5000" Title="For 6 Months"/>
         <SubsCard Prices="9000" Title="For 12 Months"/>
         </div>
         </>
@@ -72,6 +67,7 @@ const Propertyroom = () => {
   const [Amenities,setAmenities] = useState('')
   const [Rules,setRules] = useState('')
   const [Additional,setAdditional] = useState('')
+  const [Amount,setAmount] = useState('')
   const [formData, setformData] = useState({
     Property: '',
     Bedrooms: '',
@@ -95,6 +91,7 @@ const Propertyroom = () => {
         setAmenities(res.data.propertyid[0].Amenities)
         setRules(res.data.propertyid[0].HouseRules)
         setAdditional(res.data.propertyid[0].Additionalinfo)
+        setAmount(res.data.propertyid[0].RentAmount)
     })
   },[])
 
@@ -148,11 +145,15 @@ const Propertyroom = () => {
             <label className="for_lab">Additional info: </label>
             <textarea rows="1" cols="20" className="in_txt" name="Additional" onChange={handleChange}  placeholder={Additional}/>
          </div>
-         <div style={{width : "200%", marginLeft : "0.7rem"}}>
+         <div className="for_div">
+            <label className="for_lab">Rent Amount: </label>
+            <input type="text" className="in_txt" name="RentAmount" onChange={handleChange} placeholder={Amount}/>
+         </div>
+         <div style={{width : "20rem"}}>
           <h3>Select Rent Method: </h3>
           <ul style={{listStyle : "none" , marginLeft : "-2.5rem" }}>
-          <li><label className="for_lab"><input type="radio" value="Deposit + Rent" name="options" onChange={(e) => {console.log(e.target.value)}}/>Deposit + Rent</label></li>
-          <li><label className="for_lab"><input type="radio" value="Deposit first then Rent per month" name="options" onChange={(e) => {console.log(e.target.value)}}/>Deposit first then Rent per month</label></li>
+          <li><label className="for_lab"><input type="radio" value="Deposit + Rent" name="RentMethod" onChange={handleChange}/>Deposit + Rent</label></li>
+          <li><label className="for_lab"><input type="radio" value="Deposit first then Rent per month" name="RentMethod" onChange={handleChange}/>Deposit first then Rent per month</label></li>
           </ul>
         </div>
      </form>
