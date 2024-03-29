@@ -36,6 +36,14 @@ const RoomSchema = mongoose.Schema({
         type : String,
         required : true 
     },
+    RentAmount : {
+        type : String,
+        required : true 
+    },
+    RentMethod : {
+        type : String,
+        required : true 
+    },
     userId : {
         type : mongoose.Schema.Types.ObjectId,
         required : true

@@ -15,7 +15,9 @@ PropertyData.post("/propertydata", async(req,res) => {
         Description,
         Amenities,
         Rules,
-        Additional} = req.body.formData;
+        Additional,
+        RentAmount,
+        RentMethod} = req.body.formData;
         const id = req.body.id;
         const existinguser = await usermodel.findOne({_id : id})
         if(existinguser){
@@ -28,6 +30,8 @@ PropertyData.post("/propertydata", async(req,res) => {
                 Amenities : Amenities,
                 HouseRules : Rules,
                 Additionalinfo : Additional,
+                RentAmount : RentAmount,
+                RentMethod : RentMethod,
                 userId : id
             });
             res.status(201).json({"message" : "Created" , id : result._id})
@@ -146,7 +150,9 @@ PropertyData.post("/displayproperty" , async(req,res) => {
         const propertydata = await PropertyModel.findOne({_id : req.body.id})
         const propertylocation = await locationmodel.findOne({propertyId : req.body.id})
         const propertyimage = await imageModel.findOne({propertyId : req.body.id})
-        res.status(200).json({propertydata,propertylocation,propertyimage})
+        const userid = propertydata.userId;
+        const Userdata = await usermodel.findOne({_id : userid})
+        res.status(200).json({propertydata,propertylocation,propertyimage,Userdata})
     } catch (error) {
         res.status(400).json({"message" : "Error"})
         console.log(error)
