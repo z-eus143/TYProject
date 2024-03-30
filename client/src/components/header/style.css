@@ -66,6 +66,7 @@
 .dropdownlist{
     margin-top: 100px;
     position: fixed;
+    z-index: 1;
     margin-left: 75%;
 }
 

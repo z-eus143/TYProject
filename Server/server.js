@@ -9,6 +9,7 @@ const mongoose = require('mongoose')
 const Razorpay = require('razorpay');
 const UserRouter = require("./Routes/user")
 const PropertyRouter = require("./Routes/property")
+const WishlistRouter = require('./Routes/wishlist')
 
 app.use(json({limit: '100mb'}))
 app.use(cors())
@@ -21,6 +22,7 @@ app.use("/auth", authRouter)
 app.use("/create", userDate)
 app.use("/Account", UserRouter) 
 app.use("/property", PropertyRouter)
+app.use('/Wishlist',WishlistRouter)
 
 
 const razorpay = new Razorpay({
@@ -32,7 +34,7 @@ app.post('/razorpay/create-order', async (req, res) => {
     const { amount, currency } = req.body;
 
     const options = {
-        amount: amount, // Amount in paise (100 paise = 1 INR)
+        amount: amount, 
         currency: currency,
     };
 

@@ -1,7 +1,6 @@
 const express = require("express")
 const UserRouter = express.Router();
 const userModel = require('../models/User')
-const jwt = require('jsonwebtoken')
 const PropertyModel = require('../models/Property')
 
 UserRouter.post("/User", async (req,res) => {

@@ -1,55 +1,9 @@
 import React from 'react';
 import './SubsCard.css';
 import {useState} from 'react'
+import axios from 'axios'
 
 const SubsCard = ({ Title, Prices, Description, News }) => {
-
-  const [orderdata,setOrderdata] = useState([]);
-
-  const subscribedata = (e) => {
-    const now = new Date();
-    let currentMonth = now.getMonth();
-    let currentYear = now.getFullYear();
-      if (e.target.value == 3000) {
-        currentMonth += 3;
-        if (currentMonth > 11) {
-          currentMonth -= 12;
-          currentYear++;
-        }
-        const futureDate = new Date(currentYear, currentMonth, now.getDate());
-        const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
-          .toString()
-          .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-          console.log(formattedDate)
-
-
-      }if (e.target.value == 5000){
-        currentMonth += 6;
-        if (currentMonth > 11) {
-          currentMonth -= 12;
-          currentYear++;
-        }
-        const futureDate = new Date(currentYear, currentMonth, now.getDate());
-        const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
-          .toString()
-          .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-          console.log(formattedDate)
-
-
-      }if (e.target.value == 9000){
-        currentMonth += 12;
-        if (currentMonth > 11) {
-          currentMonth -= 12;
-          currentYear++;
-        }
-        const futureDate = new Date(currentYear, currentMonth, now.getDate());
-        const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
-          .toString()
-          .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-          console.log(formattedDate)
-      }
-  }
-
 
   const handlePayment = async (e) => {
     const response = await fetch('http://localhost:4000/razorpay/create-order', {
@@ -74,7 +28,7 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
         description: 'Test Payment',
         order_id: order_id,
         handler: function(response) {
-            setOrderdata(response);
+            subscribedata(e.target.value,response)
         },
         prefill: {
             name: 'Tanmay Maji',
@@ -89,6 +43,48 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
     const rzp = new window.Razorpay(options);
     rzp.open();
 };
+
+
+  const subscribedata = async (e,response) => {
+    const now = new Date();
+    let currentMonth = now.getMonth();
+    let currentYear = now.getFullYear();
+      if (e == 3000) {
+        currentMonth += 3;
+        if (currentMonth > 11) {
+          currentMonth -= 12;
+          currentYear++;
+        }
+        const futureDate = new Date(currentYear, currentMonth, now.getDate());
+        const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
+          .toString()
+          .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
+          await axios.post("http://localhost:4000/property/subscribe", {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "3000"})
+      }if (e == 5000){
+        currentMonth += 6;
+        if (currentMonth > 11) {
+          currentMonth -= 12;
+          currentYear++;
+        }
+        const futureDate = new Date(currentYear, currentMonth, now.getDate());
+        const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
+          .toString()
+          .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
+          await axios.post("http://localhost:4000/property/subscribe", {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "5000"})
+      }if (e == 9000){
+        currentMonth += 12;
+        if (currentMonth > 11) {
+          currentMonth -= 12;
+          currentYear++;
+        }
+        const futureDate = new Date(currentYear, currentMonth, now.getDate());
+        const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
+          .toString()
+          .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
+          await axios.post("http://localhost:4000/property/subscribe", {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "9000"})
+        }
+  }
+
 
   return (
     <div className='Subs-card'>
@@ -116,8 +112,6 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
       {/* button */}
       
         <button className='Sub-btn' value={Prices} onClick={handlePayment}>Subscribe</button>
-      
-
     </div>
   );
 };

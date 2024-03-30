@@ -129,15 +129,22 @@ PropertyData.post("/imagesfromdb", async(req,res) => {
 
 PropertyData.post("/subscribe", async(req,res) => {
     try {
-        const {amount , startDate , endDate} = req.body;
+        const {amount , endDate , orderdata} = req.body;
         const existingproperty = await subscriptionModel.find({_id : req.body.id})
         if(existingproperty){
-            const result = await subscriptionModel.create({
+            var currentDate = new Date();
+            var year = currentDate.getFullYear();
+            var month = currentDate.getMonth() + 1;
+            var day = currentDate.getDate();
+            var formattedDate = year + "-" + month + "-" + day;
+            await subscriptionModel.create({
                 amount : amount,
-                startDate : startDate,
                 endDate : endDate,
+                startDate : formattedDate,
+                orderData : orderdata,
                 propertyId : req.body.id
             })
+            res.status(201).json({"message" : "Created"}) 
         }
     } catch (error) {
         res.status(400).json({"message" : "Error"})

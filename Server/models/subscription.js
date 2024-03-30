@@ -13,6 +13,10 @@ const Schema = mongoose.Schema({
         type : Date,
         required : true
     },
+    orderData : {
+        type : Array,
+        required : true
+    },
     propertyId : {
         type : mongoose.Schema.Types.ObjectId,
         required : true

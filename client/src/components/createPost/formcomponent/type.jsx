@@ -286,7 +286,7 @@ const Imagemulupload = ({}) => {
     const [message,setmessage] = useState('');
 
     useEffect(() => {
-      axios.post("http://localhost:4000/property/imagesfromdb", {"id" : localStorage.getItem("imageid")})
+      axios.post("http://localhost:4000/property/imagesfromdb", {"id" : localStorage.getItem("propertyId")})
       .then((res) => {
         setImages(res.data.images[0].images)
         setmessage(res.data.message)

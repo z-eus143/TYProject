@@ -5,22 +5,38 @@ import axios from 'axios';
 
 export const Displayproperty = () => {
   const location = useLocation();
-  // const [propertyData,setpropertydata] = useState(null)
   const receivedData = location.state.id;
   // State to store property data
   const [propertyData, setPropertyData] = useState(null);
   const [propertyimage, setPropertyImage] = useState(null);
   const compair = localStorage.getItem("userId")
   const [toCompair,settoCompair] = useState();
+  const [checklist,setchecklist] = useState(" ");
+  const [rerender, setRerender] = useState(false);
   const navigate = useNavigate();
+
+  const checkwishlist = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/Wishlist/check",{"userId" : localStorage.getItem("userId")});
+      const ids = response.data.objectid;
+      for(const id of ids){
+        if(id == receivedData){
+          setchecklist(response.data.message)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching property data:', error);
+    }
+  }
 
   // Function to fetch property data from the API
   const fetchPropertyData = async () => {
     try {
       const response = await axios.post("http://localhost:4000/property/displayproperty",{"id" : receivedData});
-      setPropertyData(response.data); // Assuming response.data contains the property data
+      setPropertyData(response.data);
       setPropertyImage(response.data.propertyimage.images)
       settoCompair(response.data.propertydata.userId)
+      checkwishlist()
     } catch (error) {
       console.error('Error fetching property data:', error);
     }
@@ -29,7 +45,12 @@ export const Displayproperty = () => {
   // Fetch property data on component mount
   useEffect(() => {
     fetchPropertyData();
-  }, []);
+  }, [rerender]);
+
+  const addToCompaire = async () => {
+    setRerender(!rerender)
+    await axios.post("http://localhost:4000/Wishlist/wishlistadd",{"userId" : localStorage.getItem("userId"), "itemId" : receivedData})
+  }
 
   return (
     <div>
@@ -63,8 +84,8 @@ export const Displayproperty = () => {
         </div>
       )}
       <div>
-        { (compair != toCompair) ?  <div> <button style={{color : "orange"}}>add for compair</button>
-        <button style={{color : "green"}} onClick={() => navigate("/rent")}>proced for Rent</button> </div> : <button>Update data</button>}
+        { (compair != toCompair) ?  <div> <button style={{color : "orange"}}>{(checklist != "available") ? <h5 onClick={addToCompaire}>add To Compaire</h5> : <h5 onClick={() => {navigate("/wishlist")}}>Already added to wishlist</h5> }</button>
+        <button style={{color : "green"}} onClick={() => navigate("/rent")}><h5>proced for Rent</h5></button> </div> : <button>Update data</button>}
       </div>
     </div>
     
