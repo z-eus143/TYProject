@@ -6,7 +6,6 @@ import axios from 'axios';
 export const Displayproperty = () => {
   const location = useLocation();
   const receivedData = location.state.id;
-  // State to store property data
   const [propertyData, setPropertyData] = useState(null);
   const [propertyimage, setPropertyImage] = useState(null);
   const compair = localStorage.getItem("userId")

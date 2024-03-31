@@ -60,11 +60,11 @@ router.post('/wishlistadd', async (req, res) => {
     }
   });
 
-router.delete('/delete' , async (req,res) => {
-    const { userId, itemId } = req.body;
-    let wishlist = await Wishlist.findOne({ userId });
+router.post('/delete' , async (req,res) => {
+    const { userId } = req.body;
+    const wishlist = await Wishlist.findOne({ userId });
     let data = wishlist.itemId;
-    const itemIdToDelete = itemId;
+    const itemIdToDelete = req.body.itemId;
     
     data = data.filter(itemId => itemId !== itemIdToDelete);
     const update = {

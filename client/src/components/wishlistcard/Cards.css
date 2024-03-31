@@ -1,0 +1,40 @@
+.Card-container{
+    width: 15rem;
+    border-radius: 1rem;
+    box-shadow:0 10px 8px #999 ;
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    background-color: white;
+    height: fit-content;
+    transition: transform 0.5s ease;
+}
+
+.Card-container:hover{
+        box-shadow:0px 10px 18px #999 ;
+        transform: translateY(-10px);
+        cursor:pointer ;
+}
+
+.Card-Img{
+    width: 100%;
+    height: 200px;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.Card-title,
+.Card-description{
+    margin: 0.5rem 5%;
+    font-weight: 300;
+    font-size: large;
+}
+
+.Card-btn{
+    text-align: center;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    margin: 0.5rem auto;
+}
