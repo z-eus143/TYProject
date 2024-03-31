@@ -6,8 +6,8 @@
     grid-template-columns:1fr 1fr 1fr;
     box-shadow: 2px 2px 7px 0 rgb(0, 0, 0, 0.2);
     color: red;
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    /* border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px; */
     background-color: white;
 }
 
@@ -28,7 +28,7 @@
     text-align: center;
     box-shadow: 2px 2px 7px 0 rgb(0, 0, 0, 0.2);
     margin: 20px;
-    margin-left: 26%;
+    margin-left: 12rem;
     font-size: xx-large;
     cursor: pointer;
 }
@@ -39,7 +39,7 @@
 
 .hostProp{
     margin-top: 20px;
-    margin-left: 90%;
+    margin-left: 99%;
     border-radius: 25px;
     font-weight: 500;
     color: black;
@@ -112,6 +112,7 @@
     text-align: center;
     list-style: none;
     margin-top: 20px;
+    margin-left: 3.8rem;
     padding: 20px;
     border-radius: 25px;
     box-shadow: 6px 6px 12px #c5c5c5;
