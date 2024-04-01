@@ -1,4 +1,4 @@
-.Card-container{
+/* .Card-container{
     width: 15rem;
     border-radius: 1rem;
     box-shadow:0 10px 8px #999 ;
@@ -37,4 +37,60 @@
     color: white;
     text-decoration: none;
     margin: 0.5rem auto;
-}
+} */
+
+    /* Global Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+      }
+      .wishlist_container {
+        text-align: center;
+        width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333333;
+      }
+      /* Listing Styles */
+      .listing {
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+      }
+      .listing img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+      .listing h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #333333;
+      }
+      .listing p {
+        margin: 5px 0;
+        color: #666666;
+      }
+      .remove-button {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #dc3545;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .remove-button:hover {
+        background-color: #c82333;
+      }

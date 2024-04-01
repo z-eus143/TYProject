@@ -5,7 +5,7 @@ import '../Wishlist/style.css'
 import LoadingBar from 'react-top-loading-bar'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { WishlistCards } from "../wishlistcard/cards"
+import { WishlistCards } from "../wishlistcard/wishlistcards"
 
 export const Wishlist = () => {
     const [postdata, setpostdata] = useState([])
@@ -30,7 +30,7 @@ export const Wishlist = () => {
     <div style={{paddingTop : "5rem"}}>
     <div style={{display : "grid" , gridTemplateColumns : "1fr 1fr 1fr 1fr" , columnGap : "10px" , marginLeft : "5rem" , marginTop : "2rem" , rowGap : "1rem"}}>
                 {postdata.map((item, index) => {
-                return(<div key={index}><WishlistCards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom}/></div>)
+                return(<div  style={{display : 'grid' , gridTemplateColumns : '1fr 1fr' , width : "100%" , columnGap : '20px'}} key={index}><WishlistCards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom}/></div>)
              })}
              </div>
              </div>
