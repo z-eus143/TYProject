@@ -41,6 +41,7 @@
   .book-now {
     background-color: #f8f9fa;
     padding: 20px;
+    width: 90%;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
@@ -49,13 +50,16 @@
     margin-bottom: 10px;
   }
   .booking-form {
+    text-align: left;
     display: flex;
     flex-direction: column;
   }
   .booking-form label {
+    text-align: left;
     margin-bottom: 10px;
   }
   .booking-form input[type="date"] {
+    text-align: left;
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 5px;
@@ -110,3 +114,28 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  .property-info-user {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  .property-info-user h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  .property-info-user p {
+    text-align: left;
+  }
+  .property-info-user p {
+    margin: 5px 0;
+  }
+
+  .property-info-user img {
+    margin-left: 12rem;
+    width: 25%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }

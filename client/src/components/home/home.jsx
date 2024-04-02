@@ -32,7 +32,8 @@ export const Home = () => {
                     Type: property.Type,
                     NoBedRoom: property.NoBedRoom,
                     Amenities: property.Amenities,
-                    Description : property.Description,
+                    NoBathRoom: property.NoBathRoom,
+                    Amount: property.RentAmount,
                     id : property._id
                 }));
                 setpostdata(mappedData)
@@ -46,12 +47,12 @@ export const Home = () => {
             <div className="search_sec">
                 <input type="text" className="search_txt" placeholder="state" onChange={(e) => setstate(e.target.value)}/>
                 <input type="text" className="search_txt" placeholder="city" onChange={(e) => setcity(e.target.value)}/>
-                <input type="Number" className="search_txt" placeholder=" No of Guest " min="1" onChange={(e) => setnum(e.target.value)}/>
+                <input type="type" className="search_txt" placeholder=" Select type " onChange={(e) => setnum(e.target.value)}/>
                 <img src={search} alt="search" className="img_search" onClick={searchData}/>
             </div>
-            <div style={{display : "grid" , gridTemplateColumns : "1fr 1fr 1fr 1fr" , columnGap : "10px" , marginLeft : "5rem" , marginTop : "2rem" , rowGap : "1rem"}}>
+            <div style={{display : "grid" , gridTemplateColumns : "1fr 1fr 1fr 1fr" , marginLeft : "2rem" , marginTop : "1rem" , rowGap : "1rem"}}>
                 {postdata.map((item, index) => {
-                return(<div key={index}><Cards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom}/></div>)
+                return(<div key={index}><Cards id={item.id} Title={item.Type} noofbedrooms={item.NoBedRoom} NoBathRoom={item.NoBathRoom} Amount={item.Amount}/></div>)
              })}
              </div>
         </div>

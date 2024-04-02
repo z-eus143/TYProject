@@ -17,6 +17,16 @@ UserRouter.post("/User", async (req,res) => {
     }
 }) 
 
+UserRouter.post("/Userdata", async (req,res) => {
+    try {
+        let result = await userModel.find();
+        res.json(result)
+    } catch (error) {
+        res.status(400).json({"message" : error})
+        console.log(error)
+    }
+}) 
+
 UserRouter.post("/Userhosted", async (req,res) => {
     try {
         const {id} = req.body;

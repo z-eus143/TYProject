@@ -98,6 +98,16 @@ PropertyData.post("/location", async(req,res) => {
     }
 })
 
+PropertyData.post("/locationdb", async(req,res) => {
+    try {
+        const propertyid = await locationmodel.findOne({propertyId : req.body.id})
+        res.status(200).json({propertyid})
+    } catch (error) {
+        res.status(400).json({"message" : "Error"})
+        console.log(error)
+    }
+})
+
 PropertyData.post("/images", async(req,res) => {
     try {
         const images = req.body.images;
