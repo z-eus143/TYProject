@@ -1,130 +1,140 @@
-.acc_sec{
-    padding-top: 100px;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
 }
 
-.acc_user_info{
-    margin-top: 1rem;
-    font-weight: 600;
+.profile-container {
+display: flex;
+align-items: center;
+max-width: 600px;
+margin: 20px auto;
+padding: 20px;
+background: linear-gradient(135deg, #ff6347, #ff0000);
+border-radius: 20px;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+overflow: hidden;
+transition: transform 0.3s ease-in-out;
 }
 
-.User_Account{
-    display: grid;
-    grid-template-columns: 1fr 1fr 2fr;
-    margin-bottom: 2rem;
+
+.profile-container:hover {
+    transform: translateY(-5px);
 }
 
-
-.user_image{
-    margin-top: 20px;
-    height: 120px;
-    width: 120px;
-    border-radius: 60px;
+.profile-picture {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-.account_user_profile{
-    background-color: white;
-    height: 15rem;
-    width: 19rem;
-    margin-left: 10%;
-    border-radius: 30px;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
-    padding: 10px;
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
 }
 
-.account_user_contact{
-    background-color: white;
-    margin-top: 2.5rem;
-    border-radius: 30px;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
-    height: 10rem;
+.profile-picture:hover img {
+    transform: scale(1.05);
 }
 
-.account_user_profile_name{
-    font-weight: 400;
+.profile-info {
+    flex: 1;
+    color: #fff;
 }
 
-.user_rent{
-    background-color: white;
-    height: 3.5rem;
+.profile-info h2 {
     text-align: left;
-    margin: 20px;
-    padding: 10px;
-    border-radius: 30px;
-    margin-left: 40px;
-    margin-right: 40px;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
+    margin-top: 0;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 10px;
 }
 
-.user_hosting{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: white;
-    height: fit-content;
-    width: 50%;
-    text-align: left;
-    margin: 20px;
-    padding: 10px;
-    border-radius: 30px;
-    margin-left: 40px;
-    margin-right: 40px;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
+.profile-info p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    align-items: center;
 }
-.message{
-    background-color: #EEEDED;
-    height: 15rem;
-    width: 17rem;
-    margin-left: 3.7rem;
-    border-radius: 30px;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
+
+.profile-info p:last-child {
+    margin-bottom: 0;
+}
+
+.profile-info p i {
+    margin-right: 10px;
+}
+
+.icon {
+    font-size: 20px;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
 }
-
-.user_message{
-    height: 20rem;
-    width: 25rem;
-    margin-left: 10rem;
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
-.message_txt{
-    font-weight: 400;
+th {
+    background-color: #f2f2f2;
+    color: #555;
+    font-weight: 700;
+    text-transform: uppercase;
 }
-.mobile_txt{
-    font-weight: 400;
+td {
+    color: #333;
 }
-.email_txt{
-    font-weight: 400;
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
-
-.user_below_sec{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 5px;
 }
-
-.user_below_sec_payment{
-    gap: 10px;
-    height: 7rem;
-    width: 25rem;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
-    font-weight: 400;
-    font-size: x-large;
-    border-radius: 30px;
-    margin-left: 40%;
-    margin-bottom: 2rem;
-}
-.user_below_sec_notification{
-    height: 7rem;
-    width: 25rem;
-    box-shadow:  2px 2px 7px 0 rgb(0, 0, 0, 0.2);
-    font-weight: 400;
-    font-size: x-large;
-    border-radius: 30px;
-    margin-left: 9%;
-    margin-bottom: 2rem;
-}
-.para{
-    font-size: small;
+.property-image {
+    width: 100%;
+    height: auto;
 }
 
-.acc_more_opt{
-    margin-bottom: 1rem;
-    font-weight: 600;
+.scrollable-tbody {
+    height: 100px; /* Set the height of the tbody */
+    overflow-y: auto; /* Add vertical scrollbar if content overflows */
 }

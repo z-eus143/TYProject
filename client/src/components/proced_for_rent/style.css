@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+  }
+
+  .container-rent {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .container-rent p,h3 {
+    text-align: left;
+  }
+
+  .confirmation {
+    padding: 30px;
+  }
+
+  .confirmation h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .confirmation p {
+    margin-bottom: 30px;
+    color: #666;
+  }
+
+  .booking-details {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .booking-details h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .booking-details p {
+    margin-bottom: 5px;
+    color: #666;
+  }
+
+  .payment-form {
+    /* Style your payment form elements here */
+  }
+
+  .btn-pay {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-pay:hover {
+    background-color: #0056b3;
+  }

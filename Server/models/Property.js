@@ -4,6 +4,10 @@ const mongoose = require('mongoose')
 // Property Schema
 
 const RoomSchema = mongoose.Schema({
+    Category : {
+        type : String,
+        required : true
+    },
     Type : {
         type : String,
         required : true
@@ -17,6 +21,9 @@ const RoomSchema = mongoose.Schema({
         required : true
     },
     NoOccupancy : {
+        type : String,
+        required : true
+    },NoVacancy : {
         type : String,
         required : true
     },

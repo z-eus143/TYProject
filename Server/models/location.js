@@ -24,6 +24,10 @@ const LocationSchema = mongoose.Schema({
     propertyId : {
         type : mongoose.Schema.Types.ObjectId,
         required : true
+    },
+    StateProvience : {
+        type : String,
+        required : true 
     }
 } , {timestamps : true})
 

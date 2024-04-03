@@ -1,75 +1,92 @@
-import { Header } from "../header/header"
-import React, { useState , useEffect} from 'react';
-
+import { Header } from '../header/header'
+import axios from 'axios'
+import '../proced_for_rent/style.css'
+import { useEffect } from 'react'
+import {useLocation , useNavigate} from 'react-router-dom'
 export const Rent = () => {
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const [totalDays, setTotalMonths] = useState(0);
-    const [visible, setVisible] = useState(false);
-    const [visible1, setVisible1] = useState(false);
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
+  const location = useLocation();
+  const receivedData = location.state;
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
-    const calculateTotalDays = () => {
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-        
-            const startYear = start.getFullYear();
-            const startMonth = start.getMonth();
-        
-            const endYear = end.getFullYear();
-            const endMonth = end.getMonth();
-        
-            const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
-        
-            setTotalMonths(totalMonths * 2000);
-      };
+  const navigate = useNavigate();
 
-    return(
-        <>
-        <Header/>
-        <h1 style={{paddingTop : "6rem"}}>Proceed to Rent</h1>
-        <div style={{display : "flex" , justifyContent : "center"}}>
-        <div>Start Date<input type="date" min={`${year}-${month}-${day}`} onChange={(e) => setStartDate(e.target.value) }/></div>
-        <div>End Date<input type="date"  min={`${year}-${month}-${day}`} onChange={(e) => setEndDate(e.target.value) }/></div>
-        </div>
-        <button onClick={calculateTotalDays}>Calculate Total Amount</button>
-        {totalDays > 0 && (
-        <p>Total amount to pay: {totalDays}</p>
-        )}
-        <div style={{width : "20rem", marginLeft : "38rem"}}>
-          <h3>Select Rent Payment Method: </h3>
-          <ul style={{listStyle : "none" , marginLeft : "-2.5rem" }}>
-          <li><label className="for_lab"><input type="radio" value="Pay online" name="options" onChange={(e) => {console.log(e.target.value) ; setVisible(false) ; setVisible1(true)}}/>Pay online</label></li>
-          <li><label className="for_lab"><input type="radio" value="Or pay directly to the house Owner" name="options" onChange={(e) => {console.log(e.target.value); setVisible(true) ; setVisible1(false)}}/>Or pay directly to the house Owner</label></li>
-          {
-            (visible) && <Token/>
-          }
-          {
-            (visible1) && <Pay/>
-          }
-          </ul>
-        </div>
+  const subscribedata = async (response) => {
+          await axios.post("http://localhost:4000/Account/Payment", {"pro_id" : receivedData.id,"use_id" : localStorage.getItem("userId"), "startDate" : receivedData.startDate , "endDate" : receivedData.endDate ,"orderdata" : response , "amount" : receivedData.amount*receivedData.totalMonths , "Vaccancy" : receivedData.Vaccancy})
+          .then((res) => {
+            navigate("/")
+          })
+  }
 
-        </>
-    )
-}
+  const handlePayment = async (e) => {
+    const response = await fetch('http://localhost:4000/razorpay/create-order', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            amount: receivedData.amount * receivedData.totalMonths*100, // Amount in paise (100 paise = 1 INR)
+            currency: 'INR',
+        }),
+    });
 
-const Token = () => {
-    return(
-        <>
-        <h3>Token Amount 500 for Choosing this room</h3>
-        <button>Proced to pay the Token Amount</button>
-        </>
-    )
-}
+    const responseData = await response.json();
+    const { order_id } = responseData;
 
-const Pay = () => {
-    return(
-        <>
-        <button>Proced to pay the Initial Amount</button>
-        </>
-    )
+    const options = {
+        key: 'rzp_test_8VYQBFKrK9Y2qI', // Replace with your Razorpay Key ID
+        amount: receivedData.amount * receivedData.totalMonths*100, // Amount in paise (100 paise = 1 INR)
+        currency: 'INR',
+        name: 'Tanmay Maji',
+        description: 'Test Payment',
+        order_id: order_id,
+        handler: function(response) {
+            subscribedata(response)
+        },
+        prefill: {
+            name: 'Tanmay Maji',
+            email: 'tmaji435@gmail.com',
+            contact: '7219293995'
+        },
+        theme: {
+            color: '#F37254'
+        }
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+};
+
+
+  return(<>
+    <Header />
+    <div style={{paddingTop : "4rem"}}></div>
+    <div class="container-rent">
+    <div class="confirmation">
+      <h2>Confirm and Pay</h2>
+      <p>Please review your booking details and proceed with payment:</p>
+      <div class="booking-details">
+        <h3>Booking Details</h3>
+        <p><strong>Location:</strong> {receivedData.city + "," + receivedData.locality}</p>
+        <p><strong>Check-in:</strong> {receivedData.startDate}</p>
+        <p><strong>Check-out:</strong> {receivedData.endDate}</p>
+        <p><strong>Total Price:</strong> {receivedData.totalMonths +" months * " + receivedData.amount + "₹ = " + receivedData.amount * receivedData.totalMonths +"₹"} </p>
+      </div>
+      <div class="booking-details">
+        <h3>Ground rules</h3>
+        <p>
+            We ask every guest to remember a few simple things about what makes a great guest.
+            <p>{">"} Follow the house rules</p>
+            <p>{">"} Treat your Host’s home like your own</p>
+        </p>
+      </div>
+      <div class="payment-form">
+      </div>
+      <button class="btn-pay" onClick={handlePayment}>Pay Now</button>
+    </div>
+  </div>
+  </>
+  )
 }

@@ -17,6 +17,11 @@ const Cards = ({Title, noofbedrooms , id , NoBathRoom , Amount}) => {
     })
     })
   },[])
+
+const validate = (e) => {
+  (localStorage.getItem("userId")) ? navigate('/details' , {state : {id : e.target.id}}) : alert("you need to Signin")
+}
+
   return(
     <>
   <div class="property-card">
@@ -27,7 +32,7 @@ const Cards = ({Title, noofbedrooms , id , NoBathRoom , Amount}) => {
       <p><i class="fas fa-bed"></i> {noofbedrooms} Bedrooms</p>
       <p><i class="fas fa-bath"></i> {NoBathRoom} Bathrooms</p>
       <p><i class="fas fa-rupee-sign"></i> Price: ₹{Amount} per month</p>
-      <button className='bok_btn' id={id} onClick={(e) => navigate('/details' , {state : {id : e.target.id}})}>Book Now</button>
+      <button className='bok_btn' id={id} onClick={validate}>Book Now</button>
     </div>
   </div>
     </>

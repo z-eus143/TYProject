@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const PropertyModel = require('../models/Property')
+const usermodel = require('../models/User')
 
 const Wishlist = require('../models/wishlist');
+const ReviewModel = require('../models/review');
 
 router.post('/check', async (req,res) => {
   try {
@@ -52,8 +54,10 @@ router.post('/wishlistadd', async (req, res) => {
       if (existing) {
         existing.itemId.push(itemId);
         existing = await existing.save();
+        res.status(201).json({ "message": "created" });
       } else {
         existing = await Wishlist.create({ userId , itemId });
+        res.status(201).json({ "message": "created" });
       }
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -77,5 +81,23 @@ router.post('/delete' , async (req,res) => {
         new: true
       });
 })
+
+router.post('/addReview', async (req, res) => {
+  try {
+    const {Name , Note , itemId , userId} = req.body;
+    const user = await usermodel.findOne({"_id" : userId})
+    let image = user.image;
+    await ReviewModel.create({
+      note : Note,
+      name : Name,
+      userId : userId,
+      propertyId : itemId,
+      image : image
+    })
+    res.status(201).json({"message" : "created"})
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;

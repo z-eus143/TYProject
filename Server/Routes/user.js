@@ -2,6 +2,8 @@ const express = require("express")
 const UserRouter = express.Router();
 const userModel = require('../models/User')
 const PropertyModel = require('../models/Property')
+const PaymentModel = require('../models/payment');
+const payment = require("../models/payment");
 
 UserRouter.post("/User", async (req,res) => {
     try {
@@ -32,7 +34,8 @@ UserRouter.post("/Userhosted", async (req,res) => {
         const {id} = req.body;
         if (id) {
             const user = await PropertyModel.find({ userId : id});
-            res.status(201).json({user})
+            const booking = await payment.find({ userId : id})
+            res.status(201).json({user , booking})
         } else {
             res.status(400).json({"message" : "Something went Wrong 1"})
         }
@@ -40,5 +43,28 @@ UserRouter.post("/Userhosted", async (req,res) => {
         res.status(400).json({"message" : "Something went Wrong 2"})
     }
 }) 
+
+UserRouter.post("/Payment", async (req,res) => {
+    try {
+        const {amount , endDate , orderdata , startDate , Vaccancy} = req.body;
+        const existingproperty = await PropertyModel.find({_id : req.body.pro_id})
+        const Vaccancyincrement = Vaccancy+1;
+        await PropertyModel.findByIdAndUpdate(req.body.pro_id, {NoVacancy : Vaccancyincrement} , { new : true })
+        if(existingproperty){
+            await PaymentModel.create({
+                amount : amount,
+                endDate : endDate,
+                startDate : startDate,
+                orderData : orderdata,
+                propertyId : req.body.pro_id,
+                userId : req.body.use_id
+            })
+            res.status(201).json({"message" : "Created"}) 
+        }
+    } catch (error) {
+        res.status(400).json({"message" : "Error"})
+        console.log(error)
+    }
+})
 
 module.exports = UserRouter;

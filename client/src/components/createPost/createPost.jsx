@@ -45,7 +45,7 @@ export const CreatePost = () => {
         {/* navigation button */}
         <div className="div_nav">
             {(!change == 0) && <div className="nav_back" onClick={ () => {setchanege(change-1)}}>Back</div>}
-            {(change == 4) ? <button className="nav_for" onClick={()=>{navigate("/") ; localStorage.removeItem('propertyId') ; localStorage.removeItem('locationid') ; localStorage.removeItem('imageid') }}>Submit</button> : <button className="nav_for" onClick={ () => setchanege(change+1) }>Next</button>}
+            {(change == 4) ? <button className="nav_for" onClick={()=>{navigate("/") ; localStorage.removeItem('propertyId') ; localStorage.removeItem('locationid') ; localStorage.removeItem('imageid')}}>Submit</button> : <button className="nav_for" onClick={ () => setchanege(change+1) }>Next</button>}
         </div>
     </>
     )

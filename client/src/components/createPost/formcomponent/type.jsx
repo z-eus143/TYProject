@@ -12,7 +12,7 @@ export const Propertydescribe = (props) => {
         ? <><h1>{props.type}</h1> <Propertyroom/></> 
         : (props.type == "Sharedroom") 
         ? <><h1>{props.type}</h1> <Sharedproperty/></>
-        : <><h1>{props.type}</h1></>}
+        : <><h1>{props.type}</h1> <Wholeproperty/></>}
         </>
     )
 }
@@ -77,6 +77,7 @@ const Propertyroom = () => {
     Amenities: 'null',
     Rules: 'null',
     Additional: 'null',
+    Category : "A Room",
   });
 
   const [message,setmessage] = useState('')
@@ -164,44 +165,218 @@ const Propertyroom = () => {
 
 
 // for shared room
-
 const Sharedproperty = () => {
-    return(<>
-    <form className="for_in_data">
+
+  const [Property,setProperty] = useState('')
+  const [Bedrooms,setBedrooms] = useState('')
+  const [Bathrooms,setBathrooms] = useState('')
+  const [Occupancy,setOccupancy] = useState('')
+  const [Description,setDescription] = useState('')
+  const [Amenities,setAmenities] = useState('')
+  const [Rules,setRules] = useState('')
+  const [Additional,setAdditional] = useState('')
+  const [Amount,setAmount] = useState('')
+  const [formData, setformData] = useState({
+    Property: '',
+    Bedrooms: '',
+    Bathrooms: '',
+    Occupancy: '',
+    Description: 'null',
+    Amenities: 'null',
+    Rules: 'null',
+    Additional: 'null',
+    Category : "Shared Room",
+  });
+
+  const [message,setmessage] = useState('')
+  useEffect(() => {
+    axios.post("http://localhost:4000/property/property",{"id" : localStorage.getItem("propertyId")})
+    .then((res) => {
+        setProperty(res.data.propertyid[0].Type)
+        setBedrooms(res.data.propertyid[0].NoBedRoom)
+        setBathrooms(res.data.propertyid[0].NoBathRoom)
+        setOccupancy(res.data.propertyid[0].NoOccupancy)
+        setDescription(res.data.propertyid[0].Description)
+        setAmenities(res.data.propertyid[0].Amenities)
+        setRules(res.data.propertyid[0].HouseRules)
+        setAdditional(res.data.propertyid[0].Additionalinfo)
+        setAmount(res.data.propertyid[0].RentAmount)
+    })
+  },[])
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setformData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+      await axios.post("http://localhost:4000/property/propertydata", {formData , "id" : localStorage.getItem("userId")})
+      .then((res) => {
+        localStorage.setItem('propertyId',res.data.id)
+        setmessage(res.data.message)
+      })
+  } 
+
+    return( <>
+     <form className="for_in_data">
          <div className="for_div">
              <label className="for_lab">Property Name</label>
-             <input type="text" className="in_txt"/>
+             <input type="text" className="in_txt" name="Property" onChange={handleChange}  placeholder={Property}/>
          </div>
          <div className="for_div">
             <label className="for_lab">Number of Bedrooms: </label>
-            <input type="Number" min={1} max={10} className="in_txt"/>
+            <input type="Number" min={1} max={10} className="in_txt" name="Bedrooms" onChange={handleChange}  placeholder={Bedrooms}/>
          </div>
          <div className="for_div">
             <label className="for_lab">Number of Bathrooms: </label>
-            <input type="Number" min={1} max={10} className="in_txt"/>
+            <input type="Number" min={1} max={10} className="in_txt" name="Bathrooms" onChange={handleChange}  placeholder={Bathrooms}/>
          </div>
          <div className="for_div">
             <label className="for_lab">Maximum Occupancy: </label>
-            <input type="Number" min={1} max={10} className="in_txt"/>
+            <input type="Number" min={1} max={10} className="in_txt" name="Occupancy" onChange={handleChange}  placeholder={Occupancy}/>
          </div>
          <div className="for_div">
             <label className="for_lab">Description: </label>
-            <textarea rows="1" cols="20" className="in_txt"/>
+            <textarea rows="1" cols="20" className="in_txt" name="Description" onChange={handleChange}  placeholder={Description}/>
          </div>
          <div className="for_div">
             <label className="for_lab">Amenities: </label>
-            <textarea rows="1" cols="20" className="in_txt"/>
+            <textarea rows="1" cols="20" className="in_txt" name="Amenities" onChange={handleChange}  placeholder={Amenities}/>
          </div>
          <div className="for_div">
             <label className="for_lab">House Rules: </label>
-            <textarea rows="1" cols="20" className="in_txt"/>
+            <textarea rows="1" cols="20" className="in_txt" name="Rules" onChange={handleChange}  placeholder={Rules}/>
          </div>
          <div className="for_div">
             <label className="for_lab">Additional info: </label>
-            <textarea rows="1" cols="20" className="in_txt"/>
+            <textarea rows="1" cols="20" className="in_txt" name="Additional" onChange={handleChange}  placeholder={Additional}/>
          </div>
-     </form></>)
-}    
+         <div className="for_div">
+            <label className="for_lab">Rent Amount: </label>
+            <input type="text" className="in_txt" name="RentAmount" onChange={handleChange} placeholder={Amount}/>
+         </div>
+         <div style={{width : "20rem"}}>
+          <h3>Select Rent Method: </h3>
+          <ul style={{listStyle : "none" , marginLeft : "-2.5rem" }}>
+          <li><label className="for_lab"><input type="radio" value="Deposit + Rent" name="RentMethod" onChange={handleChange}/>Deposit + Rent</label></li>
+          <li><label className="for_lab"><input type="radio" value="Deposit first then Rent per month" name="RentMethod" onChange={handleChange}/>Deposit first then Rent per month</label></li>
+          </ul>
+        </div>
+     </form>
+     
+     {!(Property || message) ? <button className='btn' style={{marginTop: '10px'}} onClick={handleSubmit}>Submit</button> : <h1 style={{marginTop: '10px' , backgroundColor: "lightgreen" , boxShadow: "6px 6px 12px #c5c5c5" , borderRadius: "50px" , marginLeft: "42%" , marginRight : "42%"}}>Submitted</h1>}
+     </>)
+ }
+  
+//  for whole room
+const Wholeproperty = () => {
+
+  const [Property,setProperty] = useState('')
+  const [Bedrooms,setBedrooms] = useState('')
+  const [Bathrooms,setBathrooms] = useState('')
+  const [Occupancy,setOccupancy] = useState('')
+  const [Description,setDescription] = useState('')
+  const [Amenities,setAmenities] = useState('')
+  const [Rules,setRules] = useState('')
+  const [Additional,setAdditional] = useState('')
+  const [Amount,setAmount] = useState('')
+  const [formData, setformData] = useState({
+    Property: '',
+    Bedrooms: '',
+    Bathrooms: '',
+    Occupancy: '',
+    Description: 'null',
+    Amenities: 'null',
+    Rules: 'null',
+    Additional: 'null',
+    Category : "Whole Room",
+  });
+
+  const [message,setmessage] = useState('')
+  useEffect(() => {
+    axios.post("http://localhost:4000/property/property",{"id" : localStorage.getItem("propertyId")})
+    .then((res) => {
+        setProperty(res.data.propertyid[0].Type)
+        setBedrooms(res.data.propertyid[0].NoBedRoom)
+        setBathrooms(res.data.propertyid[0].NoBathRoom)
+        setOccupancy(res.data.propertyid[0].NoOccupancy)
+        setDescription(res.data.propertyid[0].Description)
+        setAmenities(res.data.propertyid[0].Amenities)
+        setRules(res.data.propertyid[0].HouseRules)
+        setAdditional(res.data.propertyid[0].Additionalinfo)
+        setAmount(res.data.propertyid[0].RentAmount)
+    })
+  },[])
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setformData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+      await axios.post("http://localhost:4000/property/propertydata", {formData , "id" : localStorage.getItem("userId")})
+      .then((res) => {
+        localStorage.setItem('propertyId',res.data.id)
+        setmessage(res.data.message)
+      })
+  } 
+
+    return( <>
+     <form className="for_in_data">
+         <div className="for_div">
+             <label className="for_lab">Property Name</label>
+             <input type="text" className="in_txt" name="Property" onChange={handleChange}  placeholder={Property}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Number of Bedrooms: </label>
+            <input type="Number" min={1} max={10} className="in_txt" name="Bedrooms" onChange={handleChange}  placeholder={Bedrooms}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Number of Bathrooms: </label>
+            <input type="Number" min={1} max={10} className="in_txt" name="Bathrooms" onChange={handleChange}  placeholder={Bathrooms}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Maximum Occupancy: </label>
+            <input type="Number" min={1} max={10} className="in_txt" name="Occupancy" onChange={handleChange}  placeholder={Occupancy}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Description: </label>
+            <textarea rows="1" cols="20" className="in_txt" name="Description" onChange={handleChange}  placeholder={Description}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Amenities: </label>
+            <textarea rows="1" cols="20" className="in_txt" name="Amenities" onChange={handleChange}  placeholder={Amenities}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">House Rules: </label>
+            <textarea rows="1" cols="20" className="in_txt" name="Rules" onChange={handleChange}  placeholder={Rules}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Additional info: </label>
+            <textarea rows="1" cols="20" className="in_txt" name="Additional" onChange={handleChange}  placeholder={Additional}/>
+         </div>
+         <div className="for_div">
+            <label className="for_lab">Rent Amount: </label>
+            <input type="text" className="in_txt" name="RentAmount" onChange={handleChange} placeholder={Amount}/>
+         </div>
+         <div style={{width : "20rem"}}>
+          <h3>Select Rent Method: </h3>
+          <ul style={{listStyle : "none" , marginLeft : "-2.5rem" }}>
+          <li><label className="for_lab"><input type="radio" value="Deposit + Rent" name="RentMethod" onChange={handleChange}/>Deposit + Rent</label></li>
+          <li><label className="for_lab"><input type="radio" value="Deposit first then Rent per month" name="RentMethod" onChange={handleChange}/>Deposit first then Rent per month</label></li>
+          </ul>
+        </div>
+     </form>
+     
+     {!(Property || message) ? <button className='btn' style={{marginTop: '10px'}} onClick={handleSubmit}>Submit</button> : <h1 style={{marginTop: '10px' , backgroundColor: "lightgreen" , boxShadow: "6px 6px 12px #c5c5c5" , borderRadius: "50px" , marginLeft: "42%" , marginRight : "42%"}}>Submitted</h1>}
+     </>)
+ }
 
 // Property Address form
 
@@ -211,6 +386,7 @@ const Roomaddress = () => {
   const [locality,setlocality] = useState("")
   const [city,setcity] = useState("")
   const [area,setarea] = useState("")
+  const [StateProvience,setStateProvience] = useState("")
   useEffect(() => {
     axios.post("http://localhost:4000/property/location",{"id" : localStorage.getItem("locationid")})
     .then((res) => {
@@ -219,6 +395,7 @@ const Roomaddress = () => {
       setlocality(res.data.propertyid[0].locality)
       setcity(res.data.propertyid[0].city)
       setarea(res.data.propertyid[0].area)
+      setStateProvience(res.data.propertyid[0].StateProvience)
     })
   },[])
   const [message,setmessage] = useState("")
@@ -228,6 +405,7 @@ const Roomaddress = () => {
     locality: '',
     city: '',
     area: '',
+    StateProvience : ''
   });
 
   const handleChange = (e) => {
@@ -267,7 +445,7 @@ const Roomaddress = () => {
             </div>
             <div className="for_div">
                 <label className="for_lab">State/Provience: </label>
-                <input type="text" className="in_txt" name="state" onChange={handleChange} placeholder={locality}/>
+                <input type="text" className="in_txt" name="StateProvience" onChange={handleChange} placeholder={StateProvience}/>
             </div>
             <div className="for_div">
                 <label className="for_lab">Area Pincode: </label>

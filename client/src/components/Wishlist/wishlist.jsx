@@ -3,8 +3,6 @@ import { Header } from "../header/header"
 import axios from 'axios'
 import '../Wishlist/style.css'
 import LoadingBar from 'react-top-loading-bar'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 import { WishlistCards } from "../wishlistcard/wishlistcards"
 
 export const Wishlist = () => {
@@ -17,7 +15,8 @@ export const Wishlist = () => {
                 NoBedRoom: property.NoBedRoom,
                 Amenities: property.Amenities,
                 Description : property.Description,
-                id : property._id
+                id : property._id,
+                Category : property.Category
             }));
             setpostdata(mappedData)
         })
@@ -30,7 +29,7 @@ export const Wishlist = () => {
     <div style={{paddingTop : "5rem"}}>
     <div style={{display : "grid" , gridTemplateColumns : "1fr 1fr 1fr 1fr" , columnGap : "10px" , marginLeft : "5rem" , marginTop : "2rem" , rowGap : "1rem"}}>
                 {postdata.map((item, index) => {
-                return(<div  style={{display : 'grid' , gridTemplateColumns : '1fr 1fr' , width : "100%" , columnGap : '20px'}} key={index}><WishlistCards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom}/></div>)
+                return(<div  style={{display : 'grid' , gridTemplateColumns : '1fr 1fr' , width : "100%" , columnGap : '20px'}} key={index}><WishlistCards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom} Category={item.Category}/></div>)
              })}
              </div>
              </div>
