@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import '../wishlistcard/Cards.css';
 import { useNavigate } from 'react-router-dom';
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 export const WishlistCards = ({Title, description,noofbedrooms, id , Category}) => {
   const navigate = useNavigate();
   const [image,setImages] = useState([])
   useEffect(() => {
-    axios.post("http://localhost:4000/property/imagesfromdb", {"id" : id})
+    axios.post(`${baseUrl}/property/imagesfromdb`, {"id" : id})
     .then((res) => {
       const dbimage = res.data.images[0].images[0]
       setImages(dbimage)
@@ -14,7 +15,7 @@ export const WishlistCards = ({Title, description,noofbedrooms, id , Category}) 
   },[])
 
   const deletedata = async () => {
-      await axios.post("http://localhost:4000/wishlist/delete" , {"userId" : localStorage.getItem("userId") , "itemId" : id})
+      await axios.post(`${baseUrl}/wishlist/delete` , {"userId" : localStorage.getItem("userId") , "itemId" : id})
   }
   return(
     <div>

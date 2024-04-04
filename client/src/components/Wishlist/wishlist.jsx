@@ -4,11 +4,12 @@ import axios from 'axios'
 import '../Wishlist/style.css'
 import LoadingBar from 'react-top-loading-bar'
 import { WishlistCards } from "../wishlistcard/wishlistcards"
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 export const Wishlist = () => {
     const [postdata, setpostdata] = useState([])
     useEffect(() => {
-        axios.post("http://localhost:4000/Wishlist/",{"userId" : localStorage.getItem("userId")})
+        axios.post(`${baseUrl}/Wishlist/`,{"userId" : localStorage.getItem("userId")})
         .then((res) => {
             const mappedData = res.data.map(property => ({
                 Type: property.Type,

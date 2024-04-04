@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import {Magic} from 'magic-sdk'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 export const Header = () => {
     const [open,setOpen] = useState(false);
     const [open1,setOpen1] = useState(false);
@@ -22,7 +23,7 @@ export const Header = () => {
           await magic.auth.loginWithEmailOTP({ email });
           const userMetadata = await magic.user.getInfo();
           const emailreceived = userMetadata.email
-          await axios.post("http://localhost:4000/auth/authanticate",{"email" : emailreceived})
+          await axios.post(`${baseUrl}/auth/authanticate`,{"email" : emailreceived})
           .then((res) => {
             const resemail = res.data.user.email
             if(resemail)

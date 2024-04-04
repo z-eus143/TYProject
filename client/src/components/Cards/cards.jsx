@@ -3,15 +3,16 @@ import axios from 'axios';
 import '../Cards/Cards.css';
 import { useNavigate } from 'react-router-dom';
 const Cards = ({Title, noofbedrooms , id , NoBathRoom , Amount}) => {
+  const baseUrl = import.meta.env.VITE_PROD_BASE_URL
   const navigate = useNavigate();
   const [image,setImages] = useState([])
   const [location,setlocation] = useState("")
   useEffect(() => {
-    axios.post("http://localhost:4000/property/imagesfromdb", {"id" : id})
+    axios.post(`${baseUrl}/property/imagesfromdb`, {"id" : id})
     .then((res) => {
       const dbimage = res.data.images[0].images[0]
       setImages(dbimage)
-    axios.post("http://localhost:4000/property/locationdb", {"id" : id})
+    axios.post(`${baseUrl}/property/locationdb`, {"id" : id})
     .then((res) => {
       setlocation(res.data.propertyid.locality+", "+res.data.propertyid.city)
     })

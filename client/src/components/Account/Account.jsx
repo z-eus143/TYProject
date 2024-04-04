@@ -5,7 +5,7 @@ import '../Account/style.css'
 import {RiNotification2Fill , RiWallet2Fill , RiEdit2Fill , RiUser3Line} from '@remixicon/react'
 import LoadingBar from 'react-top-loading-bar'
 import {useNavigate} from 'react-router-dom'
-
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 export const Account = () => {
     const [types , settype] = useState([]);
@@ -13,7 +13,7 @@ export const Account = () => {
     useEffect(() => {
         // Scroll to the top of the page when the component mounts
         window.scrollTo(0, 0);
-        axios.post("http://localhost:4000/Account/Userhosted",{"id" : localStorage.getItem("userId")})
+        axios.post(`${baseUrl}/Account/Userhosted`,{"id" : localStorage.getItem("userId")})
         .then((data) => {
             settype(data.data.user)
             const types = types.map(item => item.Type);
@@ -32,7 +32,7 @@ export const Account = () => {
     const [lname,setlname] = useState("");
     const [mobile,setmobile] = useState("");
     const [fname,setfname] = useState("");
-    axios.post("http://localhost:4000/Account/User",{"id" : localStorage.getItem("userId")})
+    axios.post(`${baseUrl}/Account/User`,{"id" : localStorage.getItem("userId")})
     .then((res) => {
         setemail(res.data.user.email);
         setimage(res.data.user.image);
@@ -107,11 +107,11 @@ const Datahosted = ({name , id , amount}) => {
     const navigate = useNavigate();
     const [image,setImages] = useState([])
     const [location,setlocation] = useState("")
-    axios.post("http://localhost:4000/property/imagesfromdb", {"id" : id})
+    axios.post(`${baseUrl}/property/imagesfromdb`, {"id" : id})
     .then((res) => {
       const dbimage = res.data.images[0].images[0]
       setImages(dbimage)
-    axios.post("http://localhost:4000/property/locationdb", {"id" : id})
+    axios.post(`${baseUrl}/property/locationdb`, {"id" : id})
     .then((res) => {
       setlocation(res.data.propertyid.locality+", "+res.data.propertyid.city)
     })
@@ -134,11 +134,11 @@ const Datarented = ({id}) => {
     const navigate = useNavigate();
     const [image,setImages] = useState([])
     const [location,setlocation] = useState("")
-    axios.post("http://localhost:4000/property/imagesfromdb", {"id" : id})
+    axios.post(`${baseUrl}/property/imagesfromdb`, {"id" : id})
     .then((res) => {
       const dbimage = res.data.images[0].images[0]
       setImages(dbimage)
-    axios.post("http://localhost:4000/property/locationdb", {"id" : id})
+    axios.post(`${baseUrl}/property/locationdb`, {"id" : id})
     .then((res) => {
       setlocation(res.data.propertyid.locality+", "+res.data.propertyid.city)
     })

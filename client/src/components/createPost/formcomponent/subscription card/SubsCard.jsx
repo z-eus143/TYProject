@@ -3,12 +3,13 @@ import './SubsCard.css';
 import {useState} from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 const SubsCard = ({ Title, Prices, Description, News }) => {
   const navigate = useNavigate();
 
   const handlePayment = async (e) => {
-    const response = await fetch('http://localhost:4000/razorpay/create-order', {
+    const response = await fetch(`${baseUrl}/razorpay/create-order`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -61,7 +62,7 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
         const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
           .toString()
           .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-          await axios.post("http://localhost:4000/property/subscribe", {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "3000"})
+          await axios.post(`${baseUrl}/property/subscribe`, {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "3000"})
           .then((res) => {navigate("/") ; localStorage.removeItem('propertyId') ; localStorage.removeItem('locationid') ; localStorage.removeItem('imageid')})
       }if (e == 5000){
         currentMonth += 6;
@@ -73,7 +74,7 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
         const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
           .toString()
           .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-          await axios.post("http://localhost:4000/property/subscribe", {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "5000"})
+          await axios.post(`${baseUrl}/property/subscribe`, {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "5000"})
           .then((res) => {navigate("/") ; localStorage.removeItem('propertyId') ; localStorage.removeItem('locationid') ; localStorage.removeItem('imageid')})
       }if (e == 9000){
         currentMonth += 12;
@@ -85,7 +86,7 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
         const formattedDate = `${futureDate.getFullYear()}-${(futureDate.getMonth() + 1)
           .toString()
           .padStart(2, '0')}-${futureDate.getDate().toString().padStart(2, '0')}`;
-          await axios.post("http://localhost:4000/property/subscribe", {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "9000"})
+          await axios.post(`${baseUrl}/property/subscribe`, {"id" : localStorage.getItem("propertyId"), "endDate" : formattedDate ,"orderdata" : response , "amount" : "9000"})
           .then((res) => {navigate("/") ; localStorage.removeItem('propertyId') ; localStorage.removeItem('locationid') ; localStorage.removeItem('imageid')})
         }
   }

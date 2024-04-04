@@ -3,6 +3,7 @@ import { useLocation , useNavigate} from 'react-router-dom';
 import { Header } from '../header/header';
 import '../dispalypropertydetails/display.css'
 import axios from 'axios';
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 export const Displayproperty = () => {
   const [rerender, setRerender] = useState(false);
@@ -31,7 +32,7 @@ export const Displayproperty = () => {
   const day = String(today.getDate()).padStart(2, '0');
   const checkwishlist = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/Wishlist/check",{"userId" : localStorage.getItem("userId")});
+      const response = await axios.post(`${baseUrl}/Wishlist/check`,{"userId" : localStorage.getItem("userId")});
       const ids = response.data.objectid;
       for(const id of ids){
         if(id == receivedData){
@@ -46,7 +47,7 @@ export const Displayproperty = () => {
   // Function to fetch property data from the API
   const fetchPropertyData = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/property/displayproperty",{"id" : receivedData});
+      const response = await axios.post(`${baseUrl}/property/displayproperty`,{"id" : receivedData});
       setPropertyData(response.data);
       setPropertyImage(response.data.propertyimage.images)
       settoCompair(response.data.propertydata.userId)
@@ -76,13 +77,13 @@ export const Displayproperty = () => {
 };
 
   const addToCompaire = async () => {
-    await axios.post("http://localhost:4000/Wishlist/wishlistadd",{"userId" : localStorage.getItem("userId"), "itemId" : receivedData})
+    await axios.post(`${baseUrl}/Wishlist/wishlistadd`,{"userId" : localStorage.getItem("userId"), "itemId" : receivedData})
     .then((res) => {
       setRerender(!rerender)
     })
   }
   const addReview = async () => {
-    await axios.post("http://localhost:4000/Wishlist/addReview",{"userId" : localStorage.getItem("userId"), "itemId" : receivedData , "Name" : name , "Note" : note})
+    await axios.post(`${baseUrl}/Wishlist/addReview`,{"userId" : localStorage.getItem("userId"), "itemId" : receivedData , "Name" : name , "Note" : note})
     .then((res) => {
       setRerender(!rerender)
     })

@@ -14,6 +14,7 @@ import { Displayproperty } from './components/dispalypropertydetails/dispay'
 import { Rent } from './components/proced_for_rent/rent'
 
 function App() {
+  // const data = import.meta.env.REACT_APP_BASE_URL
   const [progress,setProgress] = useState(100)
   return (
     <>

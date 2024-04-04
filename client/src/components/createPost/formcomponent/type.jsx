@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import SubsCard from "./subscription card/SubsCard"
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 
 // property listing progress
@@ -82,7 +83,7 @@ const Propertyroom = () => {
 
   const [message,setmessage] = useState('')
   useEffect(() => {
-    axios.post("http://localhost:4000/property/property",{"id" : localStorage.getItem("propertyId")})
+    axios.post(`${baseUrl}/property/property`,{"id" : localStorage.getItem("propertyId")})
     .then((res) => {
         setProperty(res.data.propertyid[0].Type)
         setBedrooms(res.data.propertyid[0].NoBedRoom)
@@ -105,7 +106,7 @@ const Propertyroom = () => {
   };
 
   const handleSubmit = async () => {
-      await axios.post("http://localhost:4000/property/propertydata", {formData , "id" : localStorage.getItem("userId")})
+      await axios.post(`${baseUrl}/property/propertydata`, {formData , "id" : localStorage.getItem("userId")})
       .then((res) => {
         localStorage.setItem('propertyId',res.data.id)
         setmessage(res.data.message)
@@ -190,7 +191,7 @@ const Sharedproperty = () => {
 
   const [message,setmessage] = useState('')
   useEffect(() => {
-    axios.post("http://localhost:4000/property/property",{"id" : localStorage.getItem("propertyId")})
+    axios.post(`${baseUrl}/property/property`,{"id" : localStorage.getItem("propertyId")})
     .then((res) => {
         setProperty(res.data.propertyid[0].Type)
         setBedrooms(res.data.propertyid[0].NoBedRoom)
@@ -213,7 +214,7 @@ const Sharedproperty = () => {
   };
 
   const handleSubmit = async () => {
-      await axios.post("http://localhost:4000/property/propertydata", {formData , "id" : localStorage.getItem("userId")})
+      await axios.post(`${baseUrl}/property/propertydata`, {formData , "id" : localStorage.getItem("userId")})
       .then((res) => {
         localStorage.setItem('propertyId',res.data.id)
         setmessage(res.data.message)
@@ -297,7 +298,7 @@ const Wholeproperty = () => {
 
   const [message,setmessage] = useState('')
   useEffect(() => {
-    axios.post("http://localhost:4000/property/property",{"id" : localStorage.getItem("propertyId")})
+    axios.post(`${baseUrl}/property/property`,{"id" : localStorage.getItem("propertyId")})
     .then((res) => {
         setProperty(res.data.propertyid[0].Type)
         setBedrooms(res.data.propertyid[0].NoBedRoom)
@@ -320,7 +321,7 @@ const Wholeproperty = () => {
   };
 
   const handleSubmit = async () => {
-      await axios.post("http://localhost:4000/property/propertydata", {formData , "id" : localStorage.getItem("userId")})
+      await axios.post(`${baseUrl}/property/propertydata`, {formData , "id" : localStorage.getItem("userId")})
       .then((res) => {
         localStorage.setItem('propertyId',res.data.id)
         setmessage(res.data.message)
@@ -388,7 +389,7 @@ const Roomaddress = () => {
   const [area,setarea] = useState("")
   const [StateProvience,setStateProvience] = useState("")
   useEffect(() => {
-    axios.post("http://localhost:4000/property/location",{"id" : localStorage.getItem("locationid")})
+    axios.post(`${baseUrl}/property/location`,{"id" : localStorage.getItem("locationid")})
     .then((res) => {
       setFlat(res.data.propertyid[0].Flat)
       setstreet(res.data.propertyid[0].street)
@@ -417,7 +418,7 @@ const Roomaddress = () => {
   };
 
   const handleSubmit = async () => {
-    await axios.post("http://localhost:4000/property/locationdata", {formData , "id" : localStorage.getItem("propertyId")})
+    await axios.post(`${baseUrl}/property/locationdata`, {formData , "id" : localStorage.getItem("propertyId")})
     .then((res) => {
       localStorage.setItem('locationid',res.data.id)
       setmessage(res.data.message)
@@ -464,7 +465,7 @@ const Imagemulupload = ({}) => {
     const [message,setmessage] = useState('');
 
     useEffect(() => {
-      axios.post("http://localhost:4000/property/imagesfromdb", {"id" : localStorage.getItem("propertyId")})
+      axios.post(`${baseUrl}/property/imagesfromdb`, {"id" : localStorage.getItem("propertyId")})
       .then((res) => {
         setImages(res.data.images[0].images)
         setmessage(res.data.message)
@@ -483,7 +484,7 @@ const Imagemulupload = ({}) => {
     };
 
     const sendimagetodb = async () => {
-      await axios.post("http://localhost:4000/property/images", {images , "id" : localStorage.getItem("propertyId")})
+      await axios.post(`${baseUrl}/property/images`, {images , "id" : localStorage.getItem("propertyId")})
       .then((res) => {
       localStorage.setItem('imageid',res.data.id)
       setmessage(res.data.message)

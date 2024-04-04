@@ -4,6 +4,7 @@ import logo from '../../assets/profile.jpg'
 import {useNavigate} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 export const Signup = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export const Signup = () => {
             "mobileno" : mobileno
         }
         e.preventDefault()
-        await axios.post("http://localhost:4000/create/createDate",{user})
+        await axios.post(`${baseUrl}/create/createDate`,{user})
         .then(res => {
             Cookies.remove('email')
             localStorage.setItem("userId",res.data.user._id)

@@ -3,6 +3,7 @@ import axios from 'axios'
 import '../proced_for_rent/style.css'
 import { useEffect } from 'react'
 import {useLocation , useNavigate} from 'react-router-dom'
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 export const Rent = () => {
   const location = useLocation();
   const receivedData = location.state;
@@ -14,14 +15,14 @@ export const Rent = () => {
   const navigate = useNavigate();
 
   const subscribedata = async (response) => {
-          await axios.post("http://localhost:4000/Account/Payment", {"pro_id" : receivedData.id,"use_id" : localStorage.getItem("userId"), "startDate" : receivedData.startDate , "endDate" : receivedData.endDate ,"orderdata" : response , "amount" : receivedData.amount*receivedData.totalMonths , "Vaccancy" : receivedData.Vaccancy})
+          await axios.post(`${baseUrl}/Account/Payment`, {"pro_id" : receivedData.id,"use_id" : localStorage.getItem("userId"), "startDate" : receivedData.startDate , "endDate" : receivedData.endDate ,"orderdata" : response , "amount" : receivedData.amount*receivedData.totalMonths , "Vaccancy" : receivedData.Vaccancy})
           .then((res) => {
             navigate("/")
           })
   }
 
   const handlePayment = async (e) => {
-    const response = await fetch('http://localhost:4000/razorpay/create-order', {
+    const response = await fetch(`${baseUrl}/razorpay/create-order`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

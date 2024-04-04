@@ -5,6 +5,7 @@ import search from '../../assets/search.png'
 import { useState , useEffect } from "react"
 import LoadingBar from 'react-top-loading-bar'
 import axios from "axios"
+const baseUrl = import.meta.env.VITE_PROD_BASE_URL
 
 export const Home = () => {
     useEffect(() => {
@@ -26,7 +27,7 @@ export const Home = () => {
     }
 
     useEffect(function postdata() {
-        axios.get("http://localhost:4000/property/properties")
+        axios.get(`${baseUrl}/property/properties`)
             .then((res) => {
                 const mappedData = res.data.properties.map(property => ({
                     Type: property.Type,
