@@ -47,7 +47,7 @@ app.post('/razorpay/create-order', async (req, res) => {
     }
 });
 
-mongoose.connect("mongodb://0.0.0.0:27017/RentalArc")
+mongoose.connect("mongodb+srv://tanmay:tanmay@rentalarc.ikw3zdh.mongodb.net/RentalArc")
 .then(() => {
     app.listen(port ,  () => {
         console.log(`Server started at port ${port}`)

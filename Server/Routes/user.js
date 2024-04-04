@@ -48,7 +48,7 @@ UserRouter.post("/Payment", async (req,res) => {
     try {
         const {amount , endDate , orderdata , startDate , Vaccancy} = req.body;
         const existingproperty = await PropertyModel.find({_id : req.body.pro_id})
-        const Vaccancyincrement = Vaccancy+1;
+        const Vaccancyincrement = parseInt(Vaccancy)+1;
         await PropertyModel.findByIdAndUpdate(req.body.pro_id, {NoVacancy : Vaccancyincrement} , { new : true })
         if(existingproperty){
             await PaymentModel.create({

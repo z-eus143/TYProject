@@ -10,7 +10,8 @@ const ReviewModel = require('../models/review')
 
 PropertyData.post("/propertydata", async(req,res) => {
     try {
-        const {Property,
+        const {
+        Property,
         Bedrooms,
         Bathrooms,
         Occupancy,
