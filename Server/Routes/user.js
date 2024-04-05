@@ -59,7 +59,12 @@ UserRouter.post("/Payment", async (req,res) => {
                 propertyId : req.body.pro_id,
                 userId : req.body.use_id
             })
-            res.status(201).json({"message" : "Created"}) 
+            const property = await PropertyModel.findOne({"_id" : req.body.pro_id})
+            const id = property.userId;
+            const result = await userModel.findOne({"_id" : id});
+            const email = result.email;
+            const name = result.firstname+" "+result.lastname;
+            res.status(201).json({"message" : "Created" , "email" : email , "name" : name}) 
         }
     } catch (error) {
         res.status(400).json({"message" : "Error"})

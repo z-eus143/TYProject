@@ -16,7 +16,19 @@ export const Rent = () => {
 
   const subscribedata = async (response) => {
           await axios.post(`${baseUrl}/Account/Payment`, {"pro_id" : receivedData.id,"use_id" : localStorage.getItem("userId"), "startDate" : receivedData.startDate , "endDate" : receivedData.endDate ,"orderdata" : response , "amount" : receivedData.amount*receivedData.totalMonths , "Vaccancy" : receivedData.Vaccancy})
-          .then((res) => {
+          .then(async (res) => {
+            const emailData = {
+              to: res.data.email,
+              subject: 'Home Rented E-mail',
+              text: `Your home is rented for ${receivedData.totalMonths} Months by ${res.data.name}`,
+            };
+            try {
+              await axios.post(`${baseUrl}/send-email`, emailData);
+              // alert('Email sent successfully');
+            } catch (error) {
+              console.error(error);
+              // alert('Error sending email');
+            }
             navigate("/")
           })
   }
