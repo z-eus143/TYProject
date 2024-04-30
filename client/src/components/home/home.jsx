@@ -51,7 +51,7 @@ export const Home = () => {
                 <input type="type" className="search_txt" placeholder=" Select type " onChange={(e) => setnum(e.target.value)}/>
                 <img src={search} alt="search" className="img_search" onClick={searchData}/>
             </div>
-            <div style={{display : "grid" , gridTemplateColumns : "1fr 1fr 1fr 1fr" , marginLeft : "2rem" , marginTop : "1rem" , rowGap : "1rem"}}>
+            <div className="dis_post_grid">
                 {postdata.map((item, index) => {
                 return(<div key={index}><Cards id={item.id} Title={item.Type} noofbedrooms={item.NoBedRoom} NoBathRoom={item.NoBathRoom} Amount={item.Amount}/></div>)
              })}

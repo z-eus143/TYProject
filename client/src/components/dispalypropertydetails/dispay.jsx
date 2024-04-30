@@ -107,19 +107,19 @@ return(<>
     <div class="property-details" style={{float : 'left' , textAlign : "left"}}>
     <div class="image-gallery">
   <div class="big-image">
-    <img className='big_image' src={propertyimage[0]} alt="Property Image 1"/>
+  {(propertyimage[0]) ? <img  className='big_image' src={propertyimage[0]} alt="Property Image 2"/> : <img src="https://via.placeholder.com/800x400" alt="Property Image 3" className='big_image'/>}
   </div>
   <div class="big-image">
-    <img  className='big_image' src={propertyimage[1]} alt="Property Image 2"/>
+    {(propertyimage[1]) ? <img  className='big_image' src={propertyimage[1]} alt="Property Image 2"/> : <img src="https://via.placeholder.com/800x400" alt="Property Image 3" className='big_image'/>}
   </div>
   <div class="image">
-    <img src="https://via.placeholder.com/800x400" alt="Property Image 3"/>
+    {!(propertyimage[2]) ? <img src="https://via.placeholder.com/800x400" alt="Property Image 3"/> : <img src={propertyimage[2]} alt="Property Image 3" className='small_images'/>}
   </div>
   <div class="image">
-    <img src="https://via.placeholder.com/800x400" alt="Property Image 4"/>
+  {!(propertyimage[3]) ? <img src="https://via.placeholder.com/800x400" alt="Property Image 3"/> : <img src={propertyimage[3]} alt="Property Image 3" className='small_images'/>}
   </div>
   <div class="image">
-    <img src="https://via.placeholder.com/800x400" alt="Property Image 5"/>
+  {!(propertyimage[4]) ? <img src="https://via.placeholder.com/800x400" alt="Property Image 3"/> : <img src={propertyimage[4]} alt="Property Image 3" className='small_images'/>}
   </div>
 </div>
 <div class="property-info">
@@ -127,6 +127,7 @@ return(<>
         <p>Number of Bedrooms: {propertyData.propertydata.NoBedRoom}</p>
         <p>Number of Bathrooms: {propertyData.propertydata.NoBathRoom}</p>
         <p>Number of Occupancy: {propertyData.propertydata.NoOccupancy}</p>
+        <p>Category: {propertyData.propertydata.Category}</p>
         {(propertyData.propertydata.Category == "Shared Room") && <p>Number of Vaccancy: {propertyData.propertydata.NoOccupancy - propertyData.propertydata.NoVacancy}</p>}
         <p>Amenities: {propertyData.propertydata.Amenities}</p>
         <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed urna hendrerit, commodo metus id, dictum odio. Ut auctor odio id nisl mattis efficitur.</p>
