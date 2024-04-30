@@ -1,5 +1,18 @@
 import '../properties/style.css'
+import {useNavigate} from 'react-router-dom'
+import { useState , useEffect } from 'react';
+import axios from 'axios'
 export const Property = () => {
+    const [types , settype] = useState([]);
+    const navigate = useNavigate;
+    useEffect(() => {
+        axios.get(`http://localhost:4000/property/properties`)
+        .then((data) => {
+            settype(data.data.properties)   
+            const types = types.map(item => item.Type);
+            settype(types)
+        })
+      }, []);
     return(
 <div class="container-property">
     <h2>Admin Dashboard Properties List</h2>
@@ -8,58 +21,48 @@ export const Property = () => {
             <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Description</th>
+                <th>Location</th>
                 <th>Price</th>
                 <th>Image</th>
             </tr>
         </thead>
         <tbody>
-            {/* <tr>
-                <td>1</td>
-                <td>Cozy Apartment in Downtown</td>
-                <td>A charming apartment located in the heart of the city.</td>
-                <td>$100/night</td>
-                <td>
-                    <div class="image-container">
-                        <img class="property-image" src="https://via.placeholder.com/150" alt="Property Image"/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Luxury Villa with Ocean View</td>
-                <td>Experience luxury living with breathtaking ocean views.</td>
-                <td>$500/night</td>
-                <td>
-                    <div class="image-container">
-                        <img class="property-image" src="https://via.placeholder.com/150" alt="Property Image"/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Mountain Cabin Retreat</td>
-                <td>Escape to the mountains and enjoy a cozy cabin retreat.</td>
-                <td>$150/night</td>
-                <td>
-                    <div class="image-container">
-                        <img class="property-image" src="https://via.placeholder.com/150" alt="Property Image"/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Mountain Cabin Retreat</td>
-                <td>Escape to the mountains and enjoy a cozy cabin retreat.</td>
-                <td>$150/night</td>
-                <td>
-                    <div class="image-container">
-                        <img class="property-image" src="https://via.placeholder.com/150" alt="Property Image"/>
-                    </div>
-                </td>
-            </tr> */}
+            {/* // types.map((type) => {
+            //     return( <>
+            //          <Datahosted name={type.Type} id={type._id} amount={type.RentAmount}/>
+            //      </>)
+            //  }) */}
+             {types.map((type, index) => {
+                return(<tr key={index} id={type.id} onClick={(e) => navigate('/details' , {state : {id : e.target.id}})}><td>{index + 1}</td><Datahosted name={type.Type} id={type._id} amount={type.RentAmount}/></tr>)
+             })}
         </tbody>
     </table>
 </div>
+    )
+}
+
+const Datahosted = ({name , id , amount}) => {
+    const navigate = useNavigate();
+    const [image,setImages] = useState([])
+    const [location,setlocation] = useState("")
+    axios.post(`http://localhost:4000/property/imagesfromdb`, {"id" : id})
+    .then((res) => {
+      const dbimage = res.data.images[0].images[0]
+      setImages(dbimage)
+    axios.post(`http://localhost:4000/property/locationdb`, {"id" : id})
+    .then((res) => {
+      setlocation(res.data.propertyid.locality+", "+res.data.propertyid.city)
+    })
+    })
+    return(<>
+        <td id={id}>{name}</td>
+        <td id={id}>{location}</td>
+        <td id={id}>₹{amount}/month</td>
+        <td id={id}>
+            <div class="image-container" id={id}>
+                <img class="property-image" src={image} alt="Property Image" id={id}/>
+            </div>
+        </td>
+        </>
     )
 }

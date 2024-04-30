@@ -29,7 +29,7 @@ export default App
 const Footer = () => {
   return(
     <footer>
-    <p>&copy; 2024 Real Estate Admin</p>
+    <p>&copy; RentalArc Admin</p>
   </footer>
   )
 }

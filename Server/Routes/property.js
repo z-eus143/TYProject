@@ -50,15 +50,51 @@ PropertyData.post("/propertydata", async(req,res) => {
     }
 })
 
-
 PropertyData.get("/properties", async(req,res) => {
     try {
         const properties = await PropertyModel.find()
-        res.status(200).json({properties})
+        res.status(200).json({properties , "message" : "all"})
     } catch (error) {
         res.status(400).json({"message" : "Error"})
-    }
+    } 
 })
+
+PropertyData.post("/propertiesfilter", async(req,res) => {
+    if (!req.body.city){
+    try {
+        const properties = await PropertyModel.find()
+        res.status(200).json({properties , "message" : "all"})
+    } catch (error) {
+        res.status(400).json({"message" : "Error"})
+    } 
+} else {
+    const getDataForObjectID = async (objectId) => {
+        try {
+          const data = await PropertyModel.findById(objectId)
+          return data;
+        } catch (error) {
+          console.error('Error retrieving data:', error);
+          return null;
+        }
+      };
+    try {
+        const locations = await locationmodel.find({city : req.body.city})
+        const propertyIds = locations.map(location => location.propertyId)
+        const properties = []
+        for (const propertyId of propertyIds) {
+            const data = await getDataForObjectID(propertyId);
+            if (data) {
+                properties.push(data);
+            }
+          }
+          res.status(200).json({properties , "message" : "filter"})
+    } catch (error) {
+        res.status(400).json({"message" : "Error"})
+        console.log(error)
+    }
+}
+})
+
 
 PropertyData.post("/property", async(req,res) => {
     try {
