@@ -7,6 +7,7 @@ import {Magic} from 'magic-sdk'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 const baseUrl = import.meta.env.VITE_PROD_BASE_URL
+const magicApiKey = import.meta.env.VITE_MAGIC_API_KEY
 export const Header = () => {
     const [open,setOpen] = useState(false);
     const [open1,setOpen1] = useState(false);
@@ -19,7 +20,7 @@ export const Header = () => {
         e.preventDefault();
         const email = new FormData(e.target).get("email");
         if (email) {
-          const magic = new Magic("pk_live_C120C0494B8BADC7");
+          const magic = new Magic(magicApiKey);
           await magic.auth.loginWithEmailOTP({ email });
           const userMetadata = await magic.user.getInfo();
           const emailreceived = userMetadata.email

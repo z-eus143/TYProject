@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const port = 4000
 const app = express()
@@ -11,6 +12,11 @@ const Razorpay = require('razorpay');
 const UserRouter = require("./Routes/user")
 const PropertyRouter = require("./Routes/property")
 const WishlistRouter = require('./Routes/wishlist')
+const connectionString = process.env.MONGODB_CONNECTION_STRING
+const razorpayApiKey = process.env.RAZORPAY_API_KEY
+const razorpaySecretKey = process.env.RAZORPAY_SECRET_KEY
+const Pass = process.env.GOOGLE_PASS_KEY
+const email = process.env.GOOGLE_EMAIL
 
 app.use(json({limit: '100mb'}))
 app.use(cors())
@@ -27,8 +33,8 @@ app.use('/Wishlist',WishlistRouter)
 
 
 const razorpay = new Razorpay({
-    key_id: 'rzp_test_8VYQBFKrK9Y2qI',
-    key_secret: 'IhrijnbYDwi3vkjUkKjhQAgy',
+    key_id: razorpayApiKey,
+    key_secret: razorpaySecretKey,
 });
 
 app.post('/razorpay/create-order', async (req, res) => {
@@ -52,8 +58,8 @@ app.post('/razorpay/create-order', async (req, res) => {
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'tmaji112@gmail.com',
-      pass: 'aian ramf lxsl lavi', // Generate an app-specific password for Gmail
+      user: email,
+      pass: Pass, // Generate an app-specific password for Gmail
     },
   });
   
@@ -62,7 +68,7 @@ const transporter = nodemailer.createTransport({
     const { to, subject, text } = req.body;
   
     const mailOptions = {
-      from: 'tmaji112@gmail.com',
+      from: email,
       to,
       subject,
       text,
@@ -77,7 +83,7 @@ const transporter = nodemailer.createTransport({
     });
   });
 
-mongoose.connect("mongodb+srv://tanmay:tanmay@rentalarc.ikw3zdh.mongodb.net/RentalArc")
+mongoose.connect(connectionString)
 .then(() => {
     app.listen(port ,  () => {
         console.log(`Server started at port ${port}`)

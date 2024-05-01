@@ -4,6 +4,7 @@ import {useState} from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 const baseUrl = import.meta.env.VITE_PROD_BASE_URL
+const razorpayApiKey = import.meta.env.VITE_RAZORPAY_API_KEY
 
 const SubsCard = ({ Title, Prices, Description, News }) => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SubsCard = ({ Title, Prices, Description, News }) => {
     const { order_id } = responseData;
 
     const options = {
-        key: 'rzp_test_8VYQBFKrK9Y2qI', // Replace with your Razorpay Key ID
+        key: razorpayApiKey, // Replace with your Razorpay Key ID
         amount: e.target.value*100, // Amount in paise (100 paise = 1 INR)
         currency: 'INR',
         name: 'Tanmay Maji',

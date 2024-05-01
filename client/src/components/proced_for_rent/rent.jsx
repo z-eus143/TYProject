@@ -4,6 +4,7 @@ import '../proced_for_rent/style.css'
 import { useEffect } from 'react'
 import {useLocation , useNavigate} from 'react-router-dom'
 const baseUrl = import.meta.env.VITE_PROD_BASE_URL
+const razorpayApiKey = import.meta.env.VITE_RAZORPAY_API_KEY
 export const Rent = () => {
   const location = useLocation();
   const receivedData = location.state;
@@ -49,7 +50,7 @@ export const Rent = () => {
     const { order_id } = responseData;
 
     const options = {
-        key: 'rzp_test_8VYQBFKrK9Y2qI', // Replace with your Razorpay Key ID
+        key: razorpayApiKey, // Replace with your Razorpay Key ID
         amount: receivedData.amount * receivedData.totalMonths*100, // Amount in paise (100 paise = 1 INR)
         currency: 'INR',
         name: 'Tanmay Maji',
