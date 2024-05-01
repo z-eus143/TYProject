@@ -60,8 +60,9 @@
   }
   
   .form-container-update button {
+    margin-left: 50px;
     display: block;
-    width: 100%;
+    width: 70%;
     padding: 12px;
     background-color: #dc3545;
     color: #fff;

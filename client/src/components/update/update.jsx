@@ -26,6 +26,11 @@ export const UpdatePropertyDetails = () => {
                       <label htmlFor="property-description">Property Description</label>
                       <textarea id="property-description" name="property-description" placeholder="Enter property description" required></textarea>
                     </div>
+                    <div className="form-group">
+                      <label htmlFor="property-description">Add Aminities</label>
+                      <textarea id="property-description" name="property-description" placeholder="Enter property description" required></textarea>
+                    </div>
+                    <div></div>
                     <button type="submit" className="btn-update">Update Details</button>
                   </form>
                 </div>
