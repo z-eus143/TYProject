@@ -196,7 +196,7 @@ return(<>
         <button onClick={addReview}>Submit</button>
       </div> </> : <Afterbooked/>}
     </div>
-    } </> : <button class="book-button">Update data</button>}
+    } </> : <button class="book-button" onClick={() => navigate("/update")}>Update data</button>}
   </div></div>)}</>)
 };
 

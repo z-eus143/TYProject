@@ -17,7 +17,9 @@ export const Wishlist = () => {
                 Amenities: property.Amenities,
                 Description : property.Description,
                 id : property._id,
-                Category : property.Category
+                Category : property.Category,
+                Amount: property.RentAmount
+
             }));
             setpostdata(mappedData)
         })
@@ -30,7 +32,7 @@ export const Wishlist = () => {
     <div style={{paddingTop : "5rem"}}>
     <div style={{display : "grid" , gridTemplateColumns : "1fr 1fr 1fr 1fr" , columnGap : "10px" , marginLeft : "5rem" , marginTop : "2rem" , rowGap : "1rem"}}>
                 {postdata.map((item, index) => {
-                return(<div  style={{display : 'grid' , gridTemplateColumns : '1fr 1fr' , width : "100%" , columnGap : '20px'}} key={index}><WishlistCards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom} Category={item.Category}/></div>)
+                return(<div  style={{display : 'grid' , gridTemplateColumns : '1fr 1fr' , width : "100%" , columnGap : '20px'}} key={index}><WishlistCards id={item.id} Title={item.Type} description={item.Amenities} noofbedrooms={item.NoBedRoom} Category={item.Category} amount={item.Amount}/></div>)
              })}
              </div>
              </div>

@@ -12,6 +12,7 @@ import LoadingBar from 'react-top-loading-bar'
 import { useState } from 'react'
 import { Displayproperty } from './components/dispalypropertydetails/dispay'
 import { Rent } from './components/proced_for_rent/rent'
+import { UpdatePropertyDetails } from './components/update/update'
 
 function App() {
   // const data = import.meta.env.REACT_APP_BASE_URL
@@ -29,6 +30,7 @@ function App() {
           <Route path='/Account' element={<Account/>}/>
           <Route path='/details' element={<Displayproperty/>}/>
           <Route path='/rent' element={<Rent/>}/>
+          <Route path='/update' element={<UpdatePropertyDetails/>}/>
         </Routes>
       </BrowserRouter>
       </Provider>
