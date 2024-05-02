@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require("express")
+const cron = require("node-cron")
 const port = 4000
 const app = express()
 const cors = require('cors')
@@ -12,6 +13,7 @@ const Razorpay = require('razorpay');
 const UserRouter = require("./Routes/user")
 const PropertyRouter = require("./Routes/property")
 const WishlistRouter = require('./Routes/wishlist')
+const PaymentModel = require('./models/payment')
 const connectionString = process.env.MONGODB_CONNECTION_STRING
 const razorpayApiKey = process.env.RAZORPAY_API_KEY
 const razorpaySecretKey = process.env.RAZORPAY_SECRET_KEY
@@ -82,6 +84,15 @@ const transporter = nodemailer.createTransport({
       }
     });
   });
+
+  cron.schedule('0 0 * * *', async() => {
+    try{
+      await PaymentModel.deleteMany({ endDate: {$lt : new Date()}});
+      console.log('Data deleted successfully.')
+    } catch (err){
+      console.log('error deleting data:',err)
+    }
+  })
 
 mongoose.connect(connectionString)
 .then(() => {
